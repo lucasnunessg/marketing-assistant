@@ -1,5 +1,5 @@
 from langchain_ollama import ChatOllama
-from prompt.prompt import marketing_prompt
+from app.prompt.prompt import marketing_prompt
 
 llm = ChatOllama(
     model="gemma:2b",
