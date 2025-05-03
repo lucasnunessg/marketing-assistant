@@ -1,21 +1,44 @@
-from langchain_ollama import ChatOllama
-from app.prompt.prompt import marketing_prompt
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from app.llm.llm_setup import llm
+from app.retrieve.text_retrieve import retrieve_marketing_info  
 
-llm = ChatOllama(
-    model="gemma:2b",
-    temperature=0.2,  
-    num_ctx=1024,
-    num_thread=4
-)
+chat_prompt = ChatPromptTemplate.from_messages([
+    ("system", "Você é um especialista em marketing digital. Responda sempre com foco em vendas, redes sociais, tráfego e SEO."),
+    MessagesPlaceholder(variable_name="chat_history"),
+    ("human", "{question}")
+])
 
-def ask_llm(question: str, docs: list[str]) -> str:
-  context= "\n".join(docs)
-  prompt = marketing_prompt.format(question=question, context=context)
+def is_related_to_history(question: str, chat_history: list[dict]) -> bool:
+    for entry in chat_history:
+        if 'leads' in entry['content'].lower() and 'leads' in question.lower():
+            return True
+    return False
 
+def ask_llm(question: str, docs: list[str], chat_history: list[dict]) -> str:
+   
+    if any(word in question.lower() for word in ['bom dia', 'boa tarde', 'boa noite']):
+        return "Bom dia! Como posso ajudar com seu marketing digital hoje?"
+    elif any(word in question.lower() for word in ['oi', 'olá', 'ola']):
+        return "Olá! Em que posso ajudar com marketing digital hoje?"
+    
+    context = "\n".join(docs)
 
-  try:
-    response = llm.invoke(prompt)
-    return response.content
-  except Exception as e:
-    print(f"Erro completo: {str(e)}")
-    return f"Erro ao processar: {str(e)}"
+    try:
+        messages = chat_prompt.format_messages(
+            chat_history=chat_history,
+            question=f"{question}\n\n[Contexto de apoio]:\n{context}"
+        )
+
+        response = llm.invoke(messages)
+
+        if is_related_to_history(question, chat_history):
+            print("Pesquisando mais informações...")
+            search_results = retrieve_marketing_info(question)
+            additional_info = "\n".join(search_results)
+            response.content += "\n\nInformações adicionais encontradas:\n" + additional_info
+        
+        return response.content
+
+    except Exception as e:
+        print(f"Erro completo: {str(e)}")
+        return f"Erro ao processar: {str(e)}"
