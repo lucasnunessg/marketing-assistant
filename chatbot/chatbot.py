@@ -1,5 +1,5 @@
 from langchain_ollama import ChatOllama
-from ..prompt import marketing_prompt
+from prompt.prompt import marketing_prompt
 
 llm = ChatOllama(
     model="gemma:2b",
@@ -12,7 +12,6 @@ def ask_llm(question: str, docs: list[str]) -> str:
   context= "\n".join(docs)
   prompt = marketing_prompt.format(question=question, context=context)
 
-  print("Prompt enviado ao LLM! ", prompt)
 
   try:
     response = llm.invoke(prompt)
