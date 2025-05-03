@@ -30,3 +30,20 @@ def chat_endpoint(data: ChatRequest):
     
     except Exception as e:
         return ChatResponse(response=f"Erro ao processar: {str(e)}")
+    
+@router.get("/info", response_model=ChatResponse)
+def info_endpoint():
+    try:
+        welcome_message = """
+👋 Olá! Sou especialista em MARKETING DIGITAL.
+Posso ajudar com:
+- Vendas online
+- Redes sociais
+- Publicidade
+- SEO
+Qualquer dúvida relacionada a esses tópicos, estarei à disposição para ajudar!
+        """
+        return ChatResponse(response=welcome_message.strip())
+    
+    except Exception as e:
+        return ChatResponse(response=f"Erro ao processar a solicitação: {str(e)}")
