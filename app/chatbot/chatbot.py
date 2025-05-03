@@ -5,7 +5,10 @@ from app.retrieve.text_retrieve import retrieve_marketing_info as default_retrie
 
 chat_prompt = ChatPromptTemplate.from_messages([
     ("system", "Você é um especialista em marketing digital. Responda sempre com foco em vendas, redes sociais, tráfego e SEO."),
+    ("user", "Quando surgiu o marketing digital?"),
+    ("assistant", "O marketing digital começou a ganhar força no final dos anos 1990 com a popularização da internet e evoluiu com o avanço das redes sociais e plataformas de publicidade online."),
     MessagesPlaceholder(variable_name="chat_history"),
+    ("system", "[Contexto de apoio]: {context}"),
     ("human", "{question}")
 ])
 
@@ -22,18 +25,18 @@ def ask_llm(
     llm_instance=default_llm,
     retriever=default_retriever
 ) -> str:
-
     if any(word in question.lower() for word in ['bom dia', 'boa tarde', 'boa noite']):
         return "Bom dia! Como posso ajudar com seu marketing digital hoje?"
     elif any(word in question.lower() for word in ['oi', 'olá', 'ola']):
         return "Olá! Em que posso ajudar com marketing digital hoje?"
-    
+
     context = "\n".join(docs)
 
     try:
         messages = chat_prompt.format_messages(
             chat_history=chat_history,
-            question=f"{question}\n\n[Contexto de apoio]:\n{context}"
+            question=question,
+            context=context
         )
 
         response = llm_instance.invoke(messages)
@@ -43,7 +46,7 @@ def ask_llm(
             search_results = retriever(question)
             additional_info = "\n".join(search_results)
             response.content += "\n\nInformações adicionais encontradas:\n" + additional_info
-        
+
         return response.content
 
     except Exception as e:
@@ -58,6 +61,9 @@ def process_user_input(
 ) -> str:
     if not is_marketing_question(question) and not is_follow_up_question(question, chat_history):
         return "🤖 Desculpe, só consigo responder perguntas sobre marketing digital."
+
+    if any(word in question.lower() for word in ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite']):
+        chat_history = []
 
     docs = retriever(question)
     return ask_llm(question, docs, chat_history, llm_instance=llm_instance, retriever=retriever)
