@@ -1,11 +1,14 @@
 from langchain_core.prompts import ChatPromptTemplate
 from app.llm.llm_setup import llm
 
+
 MARKETING_KEYWORDS = {
     'marketing', 'mkt', 'vendas', 'publicidade', 'anúncio', 
     'redes sociais', 'instagram', 'facebook', 'linkedin',
     'campanha', 'conversão', 'lead', 'tráfego', 'seo', 'branding'
 }
+
+
 
 def is_follow_up_question(question: str, chat_history: list[dict]) -> bool:
     if not chat_history:
@@ -55,3 +58,6 @@ def is_marketing_question(question: str) -> bool:
     except Exception as e:
         print(f"Erro ao invocar o modelo: {str(e)}")
         return False
+    
+
+

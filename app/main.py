@@ -35,8 +35,7 @@ def main():
             is_follow_up = is_follow_up_question(user_input, chat_history) if last_marketing_topic else False
             
             if not is_marketing_question(user_input) and not is_follow_up:
-                print("🔒 Foco apenas em marketing digital. Posso ajudar com:")
-                print("- Estratégias de vendas\n- Campanhas digitais\n- Gestão de redes sociais")
+                print("Eu não fui programado para responder sobre este assunto, mas podemos retomar nossa conversa:")
                 continue
                 
             docs = retrieve_marketing_info(user_input)

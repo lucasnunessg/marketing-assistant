@@ -1,5 +1,6 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from app.llm.llm_setup import llm
+from app.validators.topic_validator import is_marketing_question, is_follow_up_question
 from app.retrieve.text_retrieve import retrieve_marketing_info  
 
 chat_prompt = ChatPromptTemplate.from_messages([
@@ -42,3 +43,11 @@ def ask_llm(question: str, docs: list[str], chat_history: list[dict]) -> str:
     except Exception as e:
         print(f"Erro completo: {str(e)}")
         return f"Erro ao processar: {str(e)}"
+    
+def process_user_input(question: str, chat_history: list[dict]) -> str:
+      if not is_marketing_question(question) and not is_follow_up_question(question, chat_history):
+        return "🤖 Desculpe, só consigo responder perguntas sobre marketing digital."
+
+      docs = retrieve_marketing_info(question)
+      return ask_llm(question, docs, chat_history)
+    
