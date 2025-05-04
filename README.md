@@ -42,25 +42,30 @@ Este projeto é um **chatbot inteligente especializado em marketing digital**, d
 
 ## 🗂 Estrutura do Projeto
 
+```
 .
-├── app/ # Backend (FastAPI)
-│ ├── api/ # Endpoints da API
-│ ├── chatbot/ # Lógica do fluxo de conversas
-│ ├── llm/ # Integração com LLM via Langchain
-│ ├── prompt/ # Onde defini o comportamento inicial do bot
-│ ├── retrieve/ # Recuperação de contexto via DuckDuckGo
-│ ├── validators/ # Validações de perguntas
-│ └── tests/ # Testes unitários com mocks
-├── frontend/ # Frontend React + Vite
-│ ├── fe-marketing-assistant/ # front
-│     ├──src
-│        ├──assets/#logotipo
-│        ├──components/ #onde esta o chatpage.tsx
-│     ├──App.tsx #onde renderizei o componente
-│     ├──index.css #css do front
-│     ├──main.tsx #main do projeto
-├── requirements.txt # Dependências do backend
-└── README.md # Este documento
+├── app/                        # Backend (FastAPI)
+│   ├── api/                   # Endpoints da API
+│   ├── chatbot/               # Lógica do fluxo de conversas
+│   ├── llm/                   # Integração com LLM via Langchain
+│   ├── prompt/                # Definição do comportamento inicial do bot
+│   ├── retrieve/              # Recuperação de contexto via DuckDuckGo
+│   ├── validators/            # Validação de perguntas
+│   └── tests/                 # Testes unitários com mocks
+│
+├── frontend/                  # Frontend (React + Vite)
+│   └── fe-marketing-assistant/
+│       ├── src/
+│       │   ├── assets/        # Logotipo
+│       │   ├── components/    # Onde está o ChatPage.tsx
+│       │   ├── App.tsx        # Onde o componente principal é renderizado
+│       │   ├── index.css      # Estilos globais
+│       │   └── main.tsx       # Ponto de entrada do front
+│
+├── requirements.txt           # Dependências do backend
+└── README.md                  # Documentação do projeto
+```
+
 
 
 ---
