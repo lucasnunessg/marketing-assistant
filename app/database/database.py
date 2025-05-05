@@ -23,11 +23,11 @@ DB_URL = os.getenv("DB_URL")
 if not DB_URL:
     raise ValueError("DB_URL não está configurada no arquivo .env")
 
-engine = create_engine(
+engine = create_engine( 
     DB_URL,
-    pool_size=5,
+    pool_size=5, 
     max_overflow=10,  
-    pool_pre_ping=True #teste de ping
+    pool_pre_ping=True 
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
