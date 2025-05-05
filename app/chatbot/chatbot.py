@@ -22,14 +22,10 @@ def ask_llm(
     question: str,
     docs: list[str],
     chat_history: list[dict],
-    llm_instance=default_llm,
+    llm_instance=default_llm,  # "d" do solid, da inversao de dep, eu posso mudar a ia q vai seguir funfando, posso pasasr qqr obj q tenha o invoke
     retriever=default_retriever
 ) -> str:
-    if any(word in question.lower() for word in ['bom dia', 'boa tarde', 'boa noite']):
-        return "Bom dia! Como posso ajudar com seu marketing digital hoje?"
-    elif any(word in question.lower() for word in ['oi', 'olá', 'ola']):
-        return "Olá! Em que posso ajudar com marketing digital hoje?"
-
+    
     context = "\n".join(docs)
 
     try:
@@ -62,8 +58,6 @@ def process_user_input(
     if not is_marketing_question(question) and not is_follow_up_question(question, chat_history):
         return "🤖 Desculpe, só consigo responder perguntas sobre marketing digital."
 
-    if any(word in question.lower() for word in ['oi', 'olá', 'ola', 'bom dia', 'boa tarde', 'boa noite']):
-        chat_history = []
-
+ 
     docs = retriever(question)
     return ask_llm(question, docs, chat_history, llm_instance=llm_instance, retriever=retriever)

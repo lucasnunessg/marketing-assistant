@@ -12,7 +12,7 @@ def test_process_user_input_marketing():
     chat_history = []
     response = process_user_input(question, chat_history, llm_instance=FakeLLM(), retriever=fake_retriever)
     assert isinstance(response, str)
-    assert "campanha" in response.lower() or "facebook" in response.lower()
+    assert response == "Resposta fake do LLM" 
 
 def test_process_user_input_non_marketing():
     question = "Qual a capital da França?"

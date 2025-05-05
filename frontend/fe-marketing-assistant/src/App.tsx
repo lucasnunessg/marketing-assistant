@@ -1,4 +1,3 @@
-import './App.css'
 import ChatPage from './Components/ChatPage'
 
 function App() {
