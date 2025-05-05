@@ -1,32 +1,37 @@
-import { useState, useEffect, ChangeEvent, useRef } from 'react';
-import '../index.css';
+import { useState, useEffect, ChangeEvent, useRef } from "react";
+import "../index.css";
 
 interface Message {
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
 }
 
 function ChatComponent() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [userInput, setUserInput] = useState('');
+  const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchWelcomeMessage = async () => {
       try {
-        const response = await fetch('http://localhost:8000/info');
+        const response = await fetch("http://localhost:8000/info");
         const data = await response.json();
-        setMessages([{ role: 'assistant', content: data.response }]);
+        setMessages([{ role: "assistant", content: data.response }]);
       } catch {
-        setMessages([{ role: 'assistant', content: "Erro ao carregar a mensagem inicial." }]);
+        setMessages([
+          {
+            role: "assistant",
+            content: "Erro ao carregar a mensagem inicial.",
+          },
+        ]);
       }
     };
     fetchWelcomeMessage();
   }, []);
 
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleUserInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,15 +41,15 @@ function ChatComponent() {
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
 
-    const newMessage: Message = { role: 'user', content: userInput };
+    const newMessage: Message = { role: "user", content: userInput };
     setMessages((prev) => [...prev, newMessage]);
-    setUserInput('');
+    setUserInput("");
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           question: newMessage.content,
           docs: [],
@@ -52,9 +57,16 @@ function ChatComponent() {
         }),
       });
       const data = await response.json();
-      setMessages((prev) => [...prev, { role: 'assistant', content: data.response }]);
+      console.log(data.response);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: data.response },
+      ]);
     } catch {
-      setMessages((prev) => [...prev, { role: 'assistant', content: "Erro ao processar a pergunta." }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "Erro ao processar a pergunta." },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -75,14 +87,22 @@ function ChatComponent() {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`message ${msg.role === 'assistant' ? 'assistant' : 'user'}`}
+            className={`message ${
+              msg.role === "assistant" ? "assistant" : "user"
+            }`}
           >
-            <p>{msg.content}</p>
+            {msg.content
+              .split(".")
+              .map((frase, i) =>
+                frase.trim() ? <p key={i}>{frase.trim()}.</p> : null
+              )}
           </div>
         ))}
         {loading && (
           <div className="message assistant">
-            <p><span className="spinner" /> Digitando...</p>
+            <p>
+              <span className="spinner" /> Digitando...
+            </p>
           </div>
         )}
         <div ref={messageEndRef} />
@@ -96,8 +116,11 @@ function ChatComponent() {
           onChange={handleUserInput}
           disabled={loading}
         />
-        <button onClick={handleSendMessage} disabled={loading || !userInput.trim()}>
-          {loading ? 'Enviando...' : 'Enviar'}
+        <button
+          onClick={handleSendMessage}
+          disabled={loading || !userInput.trim()}
+        >
+          {loading ? "Enviando..." : "Enviar"}
         </button>
       </div>
     </div>
