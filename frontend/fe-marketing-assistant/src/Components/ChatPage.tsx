@@ -1,4 +1,6 @@
 import { useState, useEffect, ChangeEvent, useRef } from "react";
+import VoiceInput from "./VoiceInput";
+import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 import "../index.css";
 
 interface Message {
@@ -74,17 +76,17 @@ function ChatComponent() {
 
   return (
     <div className="chat-container">
-     <div className="header">
-  <div className="logo-container">
-    <img
-      src="https://intellux.com/Intellux_Simbolo_Verde_RGB.svg"
-      alt="Logo"
-      className="logo"
-    />
-    <span className="logo-text">intellux</span>
-  </div>
-  <h1>Chat de Marketing Digital</h1>
-</div>
+      <div className="header">
+        <div className="logo-container">
+          <img
+            src="https://intellux.com/Intellux_Simbolo_Verde_RGB.svg"
+            alt="Logo"
+            className="logo"
+          />
+          <span className="logo-text">intellux</span>
+        </div>
+        <h1>Chat de Marketing Digital</h1>
+      </div>
 
       <div className="messages">
         {messages.map((msg, index) => (
@@ -118,7 +120,9 @@ function ChatComponent() {
           value={userInput}
           onChange={handleUserInput}
           disabled={loading}
+          onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
         />
+        <VoiceInput onText={(text) => setUserInput(text)} />
         <button
           onClick={handleSendMessage}
           disabled={loading || !userInput.trim()}

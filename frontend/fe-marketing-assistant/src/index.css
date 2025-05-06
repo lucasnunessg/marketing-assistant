@@ -105,6 +105,7 @@ h1 {
   display: flex;
   gap: 0.5rem;
   margin-top: 1rem;
+  align-items: center;
 }
 
 input[type="text"] {
@@ -152,8 +153,38 @@ button:disabled {
   margin-right: 0.5rem;
 }
 
+.voice-button {
+  background: none;
+  border: none;
+  color: #C7ED0B;
+  font-size: 1.2rem;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.voice-button:hover {
+  background-color: rgba(199, 237, 11, 0.1);
+  transform: scale(1.1);
+}
+
+.voice-button.listening {
+  color: #ff4d4d;
+  animation: pulse 1.5s infinite;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
