@@ -22,7 +22,7 @@ def is_follow_up_question(question: str, chat_history: list[dict]) -> bool:
         if interaction['role'] == 'user'
     )
     
-    continuation_words = {'isso', 'como', 'porque', 'por que', 'explique', 'detalhe', 'mais', 'o que é', 'quando','quem'}
+    continuation_words = {'isso', 'como', 'porque', 'por que', 'explique', 'detalhe', 'mais', 'o que é', 'quando','quem', 'como eu posso', 'e quando', 'desde quando'}
     question_words = set(question.lower().split())
     
     return has_marketing_context and bool(continuation_words & question_words)

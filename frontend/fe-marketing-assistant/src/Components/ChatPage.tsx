@@ -1,6 +1,5 @@
 import { useState, useEffect, ChangeEvent, useRef } from "react";
 import VoiceInput from "./VoiceInput";
-import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 import "../index.css";
 
 interface Message {
@@ -130,7 +129,11 @@ function ChatComponent() {
           {loading ? "Enviando..." : "Enviar"}
         </button>
       </div>
+      <div className="footer">
+        <p>© Teste Técnico Intellux - Lucas Nunes - 05/2025</p>
+      </div>
     </div>
+    
   );
 }
 
