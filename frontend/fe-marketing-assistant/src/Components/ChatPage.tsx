@@ -113,6 +113,8 @@ function ChatComponent() {
       </div>
 
       <div className="input-container">
+        <div className="input-box">
+
         <input
           type="text"
           placeholder="Digite sua mensagem..."
@@ -122,6 +124,8 @@ function ChatComponent() {
           onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
         />
         <VoiceInput onText={(text) => setUserInput(text)} />
+        </div>
+
         <button
           onClick={handleSendMessage}
           disabled={loading || !userInput.trim()}
