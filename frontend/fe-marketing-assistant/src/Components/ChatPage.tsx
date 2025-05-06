@@ -74,14 +74,17 @@ function ChatComponent() {
 
   return (
     <div className="chat-container">
-      <div className="header">
-        <img
-          src="https://intellux.com/Intellux_Simbolo_Verde_RGB.svg"
-          alt="Logo"
-          className="logo"
-        />
-        <h1>Chat de Marketing Digital</h1>
-      </div>
+     <div className="header">
+  <div className="logo-container">
+    <img
+      src="https://intellux.com/Intellux_Simbolo_Verde_RGB.svg"
+      alt="Logo"
+      className="logo"
+    />
+    <span className="logo-text">intellux</span>
+  </div>
+  <h1>Chat de Marketing Digital</h1>
+</div>
 
       <div className="messages">
         {messages.map((msg, index) => (
