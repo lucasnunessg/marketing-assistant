@@ -1,3 +1,10 @@
+## Demonstração do Funcionamento
+
+### Interface Principal
+![Funcionamento 1](./frontend/fe-marketing-assistant/src/assets/funcionamento1.png)
+
+### Fluxo de Conversação
+![Funcionamento 2](./frontend/fe-marketing-assistant/src/assets/funcionamento2.png)
 # 🤖 Marketing Assistant – Chatbot de Marketing Digital
 
 Este projeto é um **chatbot inteligente especializado em marketing digital**, desenvolvido com:
@@ -25,19 +32,18 @@ Este projeto é um **chatbot inteligente especializado em marketing digital**, d
 ### Backend
 
 - **Python 3.11+**
-- [FastAPI](https://fastapi.tiangolo.com/)
-- [Langchain](https://www.langchain.com/)
-- [Ollama + Gemma 2B](https://ollama.com/library/gemma:2b)
-- [DuckDuckGo Search](https://pypi.org/project/duckduckgo-search/)
-- [Pytest](https://docs.pytest.org/)
+- <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener noreferrer">FastAPI</a>
+- <a href="https://www.langchain.com/" target="_blank" rel="noopener noreferrer">Langchain</a>
+- <a href="https://ollama.com/library/gemma:2b" target="_blank" rel="noopener noreferrer">Ollama + Gemma 2B</a>
+- <a href="https://pypi.org/project/duckduckgo-search/" target="_blank" rel="noopener noreferrer">DuckDuckGo Search</a>
+- <a href="https://docs.pytest.org/" target="_blank" rel="noopener noreferrer">Pytest</a>
 
 ### Frontend
 
 - **React 18**
-- [Vite](https://vitejs.dev/)
+- <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer">Vite</a>
 - TypeScript
 - CSS customizado
-
 ---
 
 ## 🗂 Estrutura do Projeto
@@ -59,7 +65,8 @@ Este projeto é um **chatbot inteligente especializado em marketing digital**, d
  │   └── fe-marketing-assistant/
  │       ├── src/
  │       │   ├── assets/        # Logotipo
- │       │   ├── components/    # Onde está o ChatPage.tsx
+ │       │   ├── components/    # Onde estão o ChatPage.tsx e VoiceInput.tsx
+ │       │   ├── types/         # Onde está a interface pro VoiceInput
  │       │   ├── App.tsx        # Onde o componente principal é renderizado
  │       │   ├── index.css      # Estilos globais
  │       │   └── main.tsx       # Ponto de entrada do front
@@ -98,8 +105,11 @@ uvicorn app.api.main:app --reload
 Acesse a documentação da API em:
 📍 http://localhost:8000/docs
 
+ ```
 
-🖥️ Frontend (React + Vite)
+🖥️ **Frontend**(React + Vite)
+
+   ```
 
     Acesse a pasta frontend:
 
@@ -116,8 +126,11 @@ npm run dev
 A interface estará em:
 📍 http://localhost:3000
 
+ ```
 
-💬 Como funciona?
+
+
+💬 **Como funciona?**
 
     O frontend carrega uma mensagem inicial via GET /info
 
@@ -133,10 +146,11 @@ A interface estará em:
 
     A resposta é retornada e exibida no chat
 
-🧪 Testes
+🧪 **Testes**
 
 Execute os testes do backend com:
-
+ ```
 pytest
+ ```
 
 Os testes usam mocks e fakes, evitando chamadas reais ao LLM e à internet.

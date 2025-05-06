@@ -26,7 +26,7 @@ def process_user_input(
         retriever=default_retriever
 ) -> str:
     if not is_marketing_question(question) and not is_follow_up_question(question, chat_history):
-        return "Desculpe, só consigo responder perguntas sobre mkt."
+        return "Desculpe, só consigo responder perguntas sobre marketing."
     
     docs = retriever(question)
     return ask_llm(question, docs, chat_history, llm_instance=llm_instance, retriever=retriever)
