@@ -14,7 +14,7 @@ body {
   justify-content: center;
   padding: 1rem;
   background-color: #1e2530;
-  font-family: 'Geist Variable', sans-serif;
+  font-family: 'Geist', sans-serif;
   color: #ffffff;
 }
 
@@ -131,7 +131,7 @@ button {
 }
 
 button:hover {
-  background-color: #b5d90a;
+  background-color: #C7ED0B;
   transform: translateY(-1px);
 }
 
@@ -184,13 +184,12 @@ button:disabled {
   width: 100%;
   background-color: #1e2530;
   text-align: center;
-  padding: 1.50rem;
-  font-size: 0.85rem;
-  color: white;
-  border-top: 0.1px solid #e0e0e0;
+  padding: 24px;
+  font-size: 13px;
+  color: #fff;
+  border-top: 1px solid #3a4757;
   z-index: 1000;
-
-  font-family: 'Montserrat', sans-serif; 
+  font-family: 'Geist', sans-serif; 
 
 }
 
