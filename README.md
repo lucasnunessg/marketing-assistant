@@ -28,6 +28,7 @@ Este projeto é um **chatbot inteligente especializado em marketing digital**, d
 ---
 
 ## 🧰 Tecnologias
+### Obs: clicar nos links abaixo pressionando "Ctrl". 
 
 ### Backend
 
